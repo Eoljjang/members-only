@@ -6,7 +6,7 @@ require("dotenv").config();
 module.exports = new Pool({
   host: "localhost", // or wherever the db is hosted
   user: "nathan_pulsemedica",
-  database: "top_users",
+  database: "members_only",
   password: "<role_password>",
   port: parseInt(process.env.DB_PORT, 10) // The default port of postgresql.
 });
