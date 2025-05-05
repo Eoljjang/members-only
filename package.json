@@ -1,0 +1,20 @@
+{
+  "name": "members-only",
+  "version": "1.0.0",
+  "description": "This project involves the following tech stack:\r - Express\r - PostGresSQL\r - Passport (For authentication)\r - pg-connect-simple (For session-store)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect-pg-simple": "^10.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "pg": "^8.15.6"
+  }
+}
