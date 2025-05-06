@@ -17,5 +17,28 @@
         <li>ID: <%= currentUser.id%></li>
      </ul>
 
+     <!-- There's a secret button where the user can enter a pw to get "member" role. -->
+      <form action="/upgradeStatus" method="post">
+        <div class="upgrade-status-input-container">
+            <label for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
+            <input type="text" name="input-upgrade" placeholder="input-upgrade">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+
+      <!-- Display error message -->
+      <% if (error && error.length) { %>
+        <p style="color:red"><%= error[0] %></p>
+      <% } %>
+    
+      <!-- Success message -->
+      <% if (success && success.length) { %>
+        <ul>
+          <% success.forEach(msg => { %>
+            <li style="color: green;"><%= msg %></li>
+          <% }) %>
+        </ul>
+      <% } %>
+
 </body>
 </html>

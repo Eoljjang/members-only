@@ -2,6 +2,7 @@
 const db = require("../db/queries");
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
+const { body, validationResult } = require('express-validator');
 
 
 const controller ={
@@ -10,9 +11,27 @@ const controller ={
     },
     nav_signup: (req, res) => {
         res.render("signup");
-
     },
     post_signup: async (req, res, next) => {
+        // 1) Run Validators
+        // await body('password')
+        // .isLength({ min: 5 })
+        // .withMessage('Password must be at least 5 characters long')
+        // .run(req);
+
+        await body('confirmPassword')
+        .custom((value, { req }) => value === req.body.password)
+        .withMessage('Passwords do not match')
+        .run(req);
+
+        // 2) Collect any validation errors & flash them.
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const errorMessages = errors.array().map(err => err.msg);
+            req.flash('error', errorMessages);
+            return res.redirect('/signup');
+        }
+
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10);
             await db.create_account(req.body.username, req.body.email, hashedPassword, "basic");
@@ -29,6 +48,7 @@ const controller ={
             res.redirect("/signup")
           }
     },
+
     post_login: (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
             if (err) return next(err);
@@ -60,6 +80,30 @@ const controller ={
         console.log("Here is the current user:\n", res.locals.currentUser);
         currentUser = res.locals.currentUser;
         res.render("dashboard", currentUser); // Pass the currentUser information to the dashboard.
+    },
+
+    upgrade_status: async(req, res, next) => {
+        // Run validator
+        await body('input-upgrade')
+        .custom((value, { req }) => value === process.env.UPGRADE_CODE)
+        .withMessage('Incorect password to become a member :(')
+        .run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log('error')
+            const errorMessages = errors.array().map(err => err.msg);
+            req.flash('error', errorMessages); 
+            res.redirect('/dashboard')
+        }
+
+        // Else: Make a db query to update that user.
+        else{
+            db.upgrade_user(res.locals.currentUser.email)
+            console.log("CORRECT")
+            req.flash('success', 'You are now a member! :)')
+            res.redirect('/dashboard')
+        }
     }
 }
 

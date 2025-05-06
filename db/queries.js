@@ -13,11 +13,19 @@ async function create_account(username, email, hashedPassword, status = 'basic')
     }
 }
 
-async function attempt_login(email, unhashedPassword){
-    return;
+async function upgrade_user(email){
+    try{
+        const result = await pool.query(
+            'UPDATE users SET status = $1 WHERE email = $2 RETURNING *',
+            ['member', email]
+        );
+    }
+    catch (err) {
+        throw err;
+    }
 }
 
 module.exports = {
     create_account,
-    attempt_login
+    upgrade_user,
 }

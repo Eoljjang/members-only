@@ -28,10 +28,11 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-// 2.2) Setup connect-flash -> Must be done after initializing session store.
+// 2.2) Setup Flash Middlewares (pass short status messages)
 app.use(flash());
 app.use((req, res, next) => {
-  res.locals.error = req.flash('error');
+  res.locals.error = req.flash('error'); // "error" variable is now accessible in ejs.
+  res.locals.success = req.flash('success'); // "success" variable is now accessible in ejs.
   next();
 });
 
