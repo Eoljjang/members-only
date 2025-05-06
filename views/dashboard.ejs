@@ -7,7 +7,15 @@
 </head>
 <body>
     <!-- This is where the user lands after they initially log in. -->
+    <!-- You can access the current user by the "currentUser" varaible. -->
      <h1>You're logged in!</h1>
+     <h3>User Information:</h3>
+     <ul>
+        <li>Username: <%= currentUser.username%></li>
+        <li>EmaiL: <%= currentUser.email%></li>
+        <li>Status / Role: <%= currentUser.status%></li>
+        <li>ID: <%= currentUser.id%></li>
+     </ul>
 
 </body>
 </html>

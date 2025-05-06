@@ -50,10 +50,9 @@ const controller ={
             status: 'basic'
         */
         console.log("Here is the current user:\n", res.locals.currentUser);
-        res.render("dashboard");
+        currentUser = res.locals.currentUser;
+        res.render("dashboard", currentUser); // Pass the currentUser information to the dashboard.
     }
-
-
 }
 
 module.exports = controller;

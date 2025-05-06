@@ -1,5 +1,6 @@
 -- You cannot create a database in a script, it must be done in the shell beforehand.
 -- So create a db called "members-only"
+-- Pass this sql file into psql: psql -U <user> -d members_only -a -f db/init.sql
 
 -- Session store table.
 CREATE TABLE "session" (

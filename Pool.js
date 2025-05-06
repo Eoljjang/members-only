@@ -5,7 +5,7 @@ require("dotenv").config();
 // A "pool" is a collectaion of clients - it holds onto those connections.
 module.exports = new Pool({
   host: "localhost", // or wherever the db is hosted
-  user: "nathan_pulsemedica",
+  user: process.env.POOL_USER,
   database: "members_only",
   password: "<role_password>",
   port: parseInt(process.env.DB_PORT, 10) // The default port of postgresql.
