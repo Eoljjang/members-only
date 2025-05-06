@@ -18,14 +18,22 @@ const controller ={
             await db.create_account(req.body.username, req.body.email, hashedPassword, "basic");
             res.redirect("/");
           } catch(err) {
-            return next(err);
+            // Set the error messsage
+            if (err.detail.includes('already exists')) {
+                req.flash('error', `Email '${req.body.email}' already exists.`)
+            }
+            else{
+                req.flash('error', err.detail)
+            }
+            
+            res.redirect("/signup")
           }
     },
     post_login: (req, res, next) => {
         passport.authenticate('local', (err, user, info) => {
             if (err) return next(err);
             if (!user) {
-                console.log("Passport authentication didn't get anything for req.body.email.")
+                req.flash('error', 'Invalid username or password');
                 return res.redirect('/'); // login failed
 
             }

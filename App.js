@@ -7,6 +7,7 @@ const pool = require("./Pool");
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
+const flash = require('connect-flash') // Used for displaying status messages like invalid username.
 require("dotenv").config();
 
 // 1) App config.
@@ -26,6 +27,13 @@ app.use(session({
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     saveUninitialized: true,
 }));
+
+// 2.2) Setup connect-flash -> Must be done after initializing session store.
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.error = req.flash('error');
+  next();
+});
 
 // 3) Authentication Settings
 passport.use(
