@@ -25,7 +25,21 @@ async function upgrade_user(email){
     }
 }
 
+async function post_message(user, messageTitle, messageContent){ // user is res.locals.currentUser object.
+    const user_id = user.id;
+    try{
+        await pool.query(
+            "INSERT INTO messages (title, message, created_by) VALUES ($1, $2, $3)",
+            [messageTitle, messageContent, user_id]
+        );
+    }
+    catch (err){
+        throw err;
+    }
+}
+
 module.exports = {
     create_account,
     upgrade_user,
+    post_message
 }

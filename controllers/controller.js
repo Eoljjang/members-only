@@ -113,7 +113,13 @@ const controller ={
             }
             res.redirect('/') // Back to login page.
         })
-    }
+    },
+
+    postMessage: (req, res, next) => {
+        const { messageTitle, messageContent } = req.body;
+        db.post_message(res.locals.currentUser, messageTitle, messageContent)
+        res.redirect('/dashboard')
+    },
 }
 
 module.exports = controller;

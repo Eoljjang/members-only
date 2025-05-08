@@ -17,6 +17,13 @@
         <li>ID: <%= currentUser.id%></li>
      </ul>
 
+     <form id="post-message-form" action="/postMessage" class="create-message-form" method="post">
+      <h3>What's on your mind?</h3>
+      <input name="messageTitle" type="text", placeholder="Title...">
+      <input name="messageContent" type="text" placeholder="Write a message...">
+      <button form="post-message-form" type="submit">Post</button>
+     </form>
+
      <!-- There's a secret button where the user can enter a pw to get "member" role. -->
       <form action="/upgradeStatus" method="post">
         <div class="upgrade-status-input-container">
@@ -26,10 +33,6 @@
         <button type="submit">Submit</button>
       </form>
 
-      <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
-      <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-      </form>
 
       <!-- Display error message -->
       <% if (error && error.length) { %>
@@ -45,5 +48,10 @@
         </ul>
       <% } %>
 
+      <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
+      <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+      </form>
+        
 </body>
 </html>
