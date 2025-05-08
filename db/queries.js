@@ -38,8 +38,13 @@ async function post_message(user, messageTitle, messageContent){ // user is res.
     }
 }
 
+async function get_messages(){
+    console.log("write my sql logic! Return JSON that contains all the messages.")
+}
+
 module.exports = {
     create_account,
     upgrade_user,
-    post_message
+    post_message,
+    get_messages,
 }

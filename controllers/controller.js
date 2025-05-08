@@ -115,6 +115,17 @@ const controller ={
         })
     },
 
+    getMessages: (req, res, next) => {
+        // 1) query the database to get all the messages
+        const dummy_messages = [ // (dummy)
+            {title: "test title", message: "test message"}
+        ]
+        const messages = db.get_messages();
+
+        // 2) Return messages -> let dashboard.ejs render it.
+        res.json(dummy_messages)
+    },
+
     postMessage: (req, res, next) => {
         const { messageTitle, messageContent } = req.body;
         db.post_message(res.locals.currentUser, messageTitle, messageContent)
