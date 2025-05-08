@@ -27,20 +27,52 @@
      <!-- Dynamic content where ejs makes the POST request to get the messages from db. -->
       <!-- Don't forget to conditionally render if user is 'basic' or 'member'-->
       <h3>Messages (from database)</h3>
-      <div id="message-container">
+      <div id="posts-container">
 
       </div>
+    
      <script>
       document.addEventListener('DOMContentLoaded', function() {
           fetch('/getMessages')
               .then(response => response.json())
               .then(data => {
-                  const messageContainer = document.getElementById('message-container');
-                  messageContainer.innerHTML = ''; // Clear any existing content
-                  data.forEach(message => {
-                      const messageDiv = document.createElement('div');
-                      messageDiv.textContent = `${message.title}: ${message.message}`;
-                      messageContainer.appendChild(messageDiv);
+                  const {messages, userStatus} = data;
+                  const postContainer = document.getElementById('posts-container');
+                  postContainer.innerHTML = ''; // Clear any existing content
+                  messages.forEach(message => {
+                      // Create divs
+                      const postItem = document.createElement('div');
+                      const postTitle = document.createElement('div');
+                      const postContent = document.createElement('div');
+                      const postTimestamp = document.createElement('div');
+                      const postAuthor = document.createElement('div');
+
+                      // Add their classes
+                      postItem.classList.add('post-item')
+                      postTitle.classList.add('post-title')
+                      postContent.classList.add('post-content')
+                      postTimestamp.classList.add('post-timestamp')
+                      postAuthor.classList.add('post-author')
+
+                      // Fill post with content
+                      postTitle.textContent = `${message.title}`;
+                      postContent.textContent = `${message.message}`;
+
+                      // If the user is a 'member' status. Then display date & author of the post.
+                      if (userStatus === "member") {
+                          postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
+                          postAuthor.textContent = `${message.username}`
+                      }
+
+                      else{
+                        postTimestamp.textContent = "Become a member to view more details!"
+                      }
+                      
+                      postItem.appendChild(postTitle);
+                      postItem.appendChild(postContent);
+                      postItem.appendChild(postTimestamp);
+                      postItem.appendChild(postAuthor);
+                      postContainer.appendChild(postItem);
                   });
               })
               .catch(error => {

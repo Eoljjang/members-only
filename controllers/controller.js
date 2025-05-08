@@ -115,15 +115,18 @@ const controller ={
         })
     },
 
-    getMessages: (req, res, next) => {
+    getMessages: async(req, res, next) => {
         // 1) query the database to get all the messages
-        const dummy_messages = [ // (dummy)
-            {title: "test title", message: "test message"}
-        ]
-        const messages = db.get_messages();
+        const messages = await db.get_messages();
+        const userStatus = res.locals.currentUser.status;
 
         // 2) Return messages -> let dashboard.ejs render it.
-        res.json(dummy_messages)
+        res.json(
+            {
+            messages,
+            userStatus
+            }
+        );
     },
 
     postMessage: (req, res, next) => {
