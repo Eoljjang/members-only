@@ -26,6 +26,11 @@
         <button type="submit">Submit</button>
       </form>
 
+      <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
+      <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+      </form>
+
       <!-- Display error message -->
       <% if (error && error.length) { %>
         <p style="color:red"><%= error[0] %></p>

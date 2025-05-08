@@ -104,6 +104,15 @@ const controller ={
             req.flash('success', 'You are now a member! :)')
             res.redirect('/dashboard')
         }
+    },
+
+    logout: (req, res, next) => {
+        req.logout(function (e) { // Passport handles removing the session and stuff.
+            if (e) {
+                return next(e);
+            }
+            res.redirect('/') // Back to login page.
+        })
     }
 }
 

@@ -10,5 +10,6 @@ router.get("/dashboard", controller.dashboard)
 router.post('/signup', controller.post_signup);
 router.post('/login', controller.post_login);
 router.post('/upgradeStatus', controller.upgrade_status);
+router.post('/logout', controller.logout);
 
 module.exports = router;
