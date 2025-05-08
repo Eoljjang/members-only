@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="/styles/login.css">
 </head>
 <body>
-
-    <h2>Welcome to Members-Only</h2>
+    
     <form id="login-form"action="/login" method="post">
+        <h2 id-="login-title">Welcome to Members-Only</h2>
         <div class="login-input-container">
             <label for="email">Email:</label>
             <input type="text" name="email" placeholder="Email" required>
@@ -19,11 +19,18 @@
             <label for="password">Password:</label>
             <input type="text" name="password" placeholder="Password" required>
         </div>
-        <button id="btn-login"type="submit">Login</button>
+
+        <div class="btn-container">
+            <a href="/signup">
+                <button id="btn-sign-up" type="button">Sign Up</button>
+            </a>
+            <button form="login-form" id="btn-login"type="submit">Login</button>
+        </div>
+        
     </form>
-    <a href="/signup">
-        <button id="btn-sign-up">Sign Up</button>
-    </a>
+
+
+
 
     <!-- connect-flash: This displays the error message(s).-->
     <% if (error && error.length) { %>

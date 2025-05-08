@@ -13,8 +13,10 @@ require("dotenv").config();
 // 1) App config.
 const app = express();
 app.set('view engine', 'ejs');
+app.use('/styles', express.static('styles')); // where to serve static css files.
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: false}));
+
 
 // 2) Session Store
 app.use(session({

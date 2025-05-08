@@ -8,7 +8,7 @@ body{
     height: 100vh;
 }
 
-#login-form{
+#signup-form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@ body{
     padding: 36px;
 }
 
-.login-input-container{
+.signup-input-container{
     width: 100%;
     font-size: 16px;
     display: flex;
@@ -27,7 +27,7 @@ body{
     margin: 12px;
 }
 
-.login-input-container input {
+.signup-input-container input {
     padding: 6px 12px;
     font-weight: 400;
     color: #212529;
@@ -44,7 +44,6 @@ body{
         outline: 0;
         box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
     }
-    
 }
 
 .btn-container{
@@ -54,7 +53,7 @@ body{
     width: 100%;
 }
 
-#btn-sign-up, #btn-login{
+#btn-signup, #btn-back{
     background-color: rgba(51, 51, 51, 0.05);
     border-radius: 8px;
     border-width: 0;
@@ -77,6 +76,6 @@ body{
     touch-action: manipulation;
 }
 
-#btn-login{
+#btn-signup{
     background-color: skyblue;
 }

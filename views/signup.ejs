@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/signup.css">
     <title>Signup</title>
 </head>
 <body>
-    <h2>Create an Account</h2>
+    
     <form id="signup-form"action="/signup" method="post">
+        <h2>Create an Account</h2>
         <div class="signup-input-container">
             <label for="email">Email:</label>
             <input type="text" name="email" placeholder="Email" required>
@@ -28,11 +30,17 @@
             <input type="text" name="confirmPassword" placeholder="Confirm Password" required>
         </div>
 
-        <button id="btn-signup"type="submit">Sign Up</button>
+        <div class="btn-container">
+            <a href="/">
+                <button type="button" id="btn-back">Back to Login</button>
+            </a>
+
+            <button form="signup-form" id="btn-signup"type="submit">Sign Up</button>
+        </div>
+
+        
     </form>
-    <a href="/">
-        <button id="btn-back">Back to Login</button>
-    </a>
+
     
     <!-- connect-flash: This displays the error message(s).-->
     <% if (error && error.length) { %>
