@@ -34,18 +34,16 @@
             <a href="/">
                 <button type="button" id="btn-back">Back to Login</button>
             </a>
-
             <button form="signup-form" id="btn-signup"type="submit">Sign Up</button>
         </div>
-
-        
     </form>
-
-    
     <!-- connect-flash: This displays the error message(s).-->
     <% if (error && error.length) { %>
         <p style="color:red"><%= error[0] %></p>
     <% } %>
+
+    
+
 
 </body>
 </html>

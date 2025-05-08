@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/dashboard.css">
     <title>Dashboard</title>
 </head>
 <body>
     <!-- This is where the user lands after they initially log in. -->
     <!-- You can access the current user by the "currentUser" varaible. -->
-     <h1>You're logged in!</h1>
-     <h3>User Information:</h3>
-     <ul>
-        <li>Username: <%= currentUser.username%></li>
-        <li>EmaiL: <%= currentUser.email%></li>
-        <li>Status / Role: <%= currentUser.status%></li>
-        <li>ID: <%= currentUser.id%></li>
-     </ul>
+     <h1 id="welcome-title">Welcome,<%= currentUser.username%></h1>
 
-     <form id="post-message-form" action="/postMessage" class="create-message-form" method="post">
-      <h3>What's on your mind?</h3>
-      <input name="messageTitle" type="text", placeholder="Title...">
-      <input name="messageContent" type="text" placeholder="Write a message...">
-      <button form="post-message-form" type="submit">Post</button>
-     </form>
+     <div class="content-container-1">
+       <div class="profile-info">
+          <h3>Profile Information:</h3>
+          <p>Username: <%= currentUser.username%></p>
+          <p>Email: <%= currentUser.email%></p>
+          <p>Status / Role: <%= currentUser.status%></p>
+          <p>ID: <%= currentUser.id%></p>
+       </div>
+       <form id="post-message-form" action="/postMessage" class="create-message-form" method="post">
+        <h3>What's on your mind?</h3>
+        <div class="post-message-input-container">
+          <textarea id="post-title-input" name="messageTitle" placeholder="Title..." required maxlength="100"></textarea>
+          <textarea required maxlength="500" name="messageContent" id="post-content-input" placeholder="Write a message..."></textarea>
+        </div>
+        <button id="post-msg-btn" form="post-message-form" type="submit">Post</button>
+       </form>
+     </div>
 
      <!-- Dynamic content where ejs makes the POST request to get the messages from db. -->
       <!-- Don't forget to conditionally render if user is 'basic' or 'member'-->
-      <h3>Messages (from database)</h3>
-      <div id="posts-container">
+      <h1>Messages</h1>
+      <div class="posts-container">
+        <div class="slide-track"> <!-- for future if i want to make it a continuous sliding carasoul.-->
+          <!-- post items -->
+        </div>
 
       </div>
     
@@ -37,8 +45,8 @@
               .then(response => response.json())
               .then(data => {
                   const {messages, userStatus} = data;
-                  const postContainer = document.getElementById('posts-container');
-                  postContainer.innerHTML = ''; // Clear any existing content
+                  const slideTrack = document.querySelector('.slide-track');
+                  slideTrack.innerHTML = ''; // Clear any existing content
                   messages.forEach(message => {
                       // Create divs
                       const postItem = document.createElement('div');
@@ -67,12 +75,11 @@
                       else{
                         postTimestamp.textContent = "Become a member to view more details!"
                       }
-                      
                       postItem.appendChild(postTitle);
                       postItem.appendChild(postContent);
                       postItem.appendChild(postTimestamp);
                       postItem.appendChild(postAuthor);
-                      postContainer.appendChild(postItem);
+                      slideTrack.appendChild(postItem);
                   });
               })
               .catch(error => {
@@ -82,7 +89,7 @@
     </script>
 
      <!-- There's a secret button where the user can enter a pw to get "member" role. -->
-      <h3>Gain Member Access</h3>
+      <h1>Gain Member Access</h1>
       <form action="/upgradeStatus" method="post">
         <div class="upgrade-status-input-container">
             <label for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
