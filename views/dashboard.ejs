@@ -118,12 +118,10 @@
 
      <!-- There's a secret button where the user can enter a pw to get "member" role. -->
       <h1 class="title">Gain Member Access</h1>
-      <form action="/upgradeStatus" method="post">
-        <div class="upgrade-status-input-container">
-            <label for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
-            <input type="text" name="input-upgrade" placeholder="input-upgrade">
-        </div>
-        <button type="submit">Submit</button>
+      <form id="member-access-form" action="/upgradeStatus" method="post">
+            <label  for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
+            <input id="input-upgrade" type="text" name="input-upgrade" placeholder="...">
+            <button id="btn-input-upgrade" type="submit">Submit</button>
       </form>
 
 
@@ -141,10 +139,10 @@
         </ul>
       <% } %>
 
-      <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
-      <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-      </form>
+    <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
+    <form id="logout-form" action="/logout" method="POST">
+      <button id="btn-logout" type="submit">Logout</button>
+    </form>
 
 </body>
 </html>
