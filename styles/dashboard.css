@@ -6,6 +6,14 @@ body{
     align-items: center;
     gap: 16px;
     height: 100vh;
+    font-size: 18px;
+    font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.title{
+    border-bottom: 3px solid black;
+    margin: 12px;
+    padding: 0;
 }
 
 .content-container-1{
@@ -16,7 +24,7 @@ body{
 }
 
 .profile-info{
-    font-size: 12px;
+    font-size: 18px;
     padding: 12px;
     display: flex;
     flex-direction: column;
@@ -27,8 +35,9 @@ body{
 }
 
 #post-message-form{
+    font-size: 18px;
     border-radius: 12px;
-    width: 300px;
+    width: 400px;
     padding: 12px;
     gap: 12px;
     display: flex;
@@ -43,11 +52,10 @@ body{
     display: flex;
     flex-direction: column;
     gap: 8px;
-
-
 }
 
 .post-message-input-container input {
+    font-size: 16px;
     padding: 6px 12px;
     font-weight: 400;
     color: #212529;
@@ -74,9 +82,8 @@ body{
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
-    font-size: 12px;
+    font-size: 16px;
     resize: none;
-
 }
 
 #post-content-input{
@@ -87,11 +94,9 @@ body{
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
-    font-size: 12px;
+    font-size: 16px;
     resize: none;
 }
-
-
 
 #post-msg-btn{
     background-color: rgba(51, 51, 51, 0.05);
@@ -101,8 +106,8 @@ body{
     cursor: pointer;
     display: inline-block;
     font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 18px;
+    font-weight: 600;
     line-height: 16px;
     list-style: none;
     margin: 0;
@@ -115,4 +120,60 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
     background-color: skyblue;
+}
+
+.posts-container{
+    display: flex;
+    width: 65%;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 12px; /* Add some minimum spacing. */
+    flex-wrap: wrap;
+    padding: 16px;
+    border-radius: 14px;
+}
+
+.post-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 12px; /* Adds some space below element when they flex-wrap. */
+    gap: 8px;
+    padding: 12px;
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: rgb(85, 204, 254) 0px 1px 3px, rgb(85, 204, 254) 0px 1px 2px;
+}
+
+.post-item * { /* IE: post-info and post-content */
+    width: 80%;
+}
+
+.post-info{
+    border-bottom: 1px solid black;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post-title{
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.post-author{
+    font-style: italic;
+}
+
+
+.post-timestamp{
+    font-style: italic;
+    font-size: smaller;
+}
+
+.self-authored{
+    padding: 2px 4px;
+    border-radius: 8px;
+    width: fit-content;
+    background-color: rgba(251, 251, 163, 0.888);
 }

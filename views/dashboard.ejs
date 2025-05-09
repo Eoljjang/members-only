@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Dashboard</title>
 </head>
 <body>
     <!-- This is where the user lands after they initially log in. -->
     <!-- You can access the current user by the "currentUser" varaible. -->
-     <h1 id="welcome-title">Welcome, <%= currentUser.username%></h1>
+     <h1 id="welcome-title" class="title">Welcome, <%= currentUser.username%></h1>
 
      <div class="content-container-1">
        <div class="profile-info">
@@ -31,7 +32,7 @@
 
      <!-- Dynamic content where ejs makes the POST request to get the messages from db. -->
       <!-- Don't forget to conditionally render if user is 'basic' or 'member'-->
-      <h1>Messages</h1>
+      <h1 class="title">Messages</h1>
       <div class="posts-container">
         <div class="slide-track"> <!-- for future if i want to make it a continuous sliding carasoul.-->
           <!-- post items -->
@@ -45,8 +46,8 @@
               .then(response => response.json())
               .then(data => {
                   const {messages, userStatus, userId} = data;
-                  const slideTrack = document.querySelector('.slide-track');
-                  slideTrack.innerHTML = ''; // Clear any existing content
+                  const postsContainer = document.querySelector('.posts-container');
+                  postsContainer.innerHTML = ''; // Clear any existing content
                   messages.forEach(message => {
                       // Create divs
                       const postItem = document.createElement('div');
@@ -54,6 +55,7 @@
                       const postContent = document.createElement('div');
                       const postTimestamp = document.createElement('div');
                       const postAuthor = document.createElement('div');
+                      const postInfo = document.createElement('div'); // Holds title, date, author.
 
                       // Add their classes
                       postItem.classList.add('post-item')
@@ -61,6 +63,8 @@
                       postContent.classList.add('post-content')
                       postTimestamp.classList.add('post-timestamp')
                       postAuthor.classList.add('post-author')
+                      postInfo.classList.add('post-info')
+
 
                       // Fill post with content
                       postTitle.textContent = `${message.title}`;
@@ -71,23 +75,39 @@
                       // If the user is a 'member' status. Then display date & author of the post.
                       if (userStatus === "member") {
                           postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
-                          postAuthor.textContent = `${message.username}`
+                          postAuthor.textContent = `@ ${message.username}`
                       }
 
                       // Or if the message was written by them, they can see the details.
                       else if (userId === message.created_by){
                           postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
-                          postAuthor.textContent = `${message.username} (Me)`
+                          postAuthor.textContent = `@ ${message.username} (Me)`
+                          postAuthor.classList.add('self-authored') // Give it this class so that it's highlighted.
                       }
 
                       else{
                         postTimestamp.textContent = "Become a member to view more details!"
                       }
-                      postItem.appendChild(postTitle);
+
+                      /* Create structure
+                      <div .posts-container>
+                        <div .post-info>
+                          postTitle
+                          postAuthor
+                          postTimestamp
+                        </div>
+                        postContent
+                      </div>
+                      */
+                      postInfo.appendChild(postTitle)
+                      postInfo.appendChild(postAuthor);
+                      postInfo.appendChild(postTimestamp);
+
+                      postItem.appendChild(postInfo);
                       postItem.appendChild(postContent);
-                      postItem.appendChild(postTimestamp);
-                      postItem.appendChild(postAuthor);
-                      slideTrack.appendChild(postItem);
+
+
+                      postsContainer.appendChild(postItem);
                   });
               })
               .catch(error => {
@@ -97,7 +117,7 @@
     </script>
 
      <!-- There's a secret button where the user can enter a pw to get "member" role. -->
-      <h1>Gain Member Access</h1>
+      <h1 class="title">Gain Member Access</h1>
       <form action="/upgradeStatus" method="post">
         <div class="upgrade-status-input-container">
             <label for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
