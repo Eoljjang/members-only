@@ -79,13 +79,13 @@
                       }
 
                       // Or if the message was written by them, they can see the details.
-                      else if (userId === message.created_by){
+                      if (userId === message.created_by){
                           postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
                           postAuthor.textContent = `@ ${message.username} (Me)`
                           postAuthor.classList.add('self-authored') // Give it this class so that it's highlighted.
                       }
 
-                      else{
+                      if (userStatus !== "member"){
                         postTimestamp.textContent = "Become a member to view more details!"
                       }
 
@@ -128,16 +128,16 @@
       <!-- Display error message -->
       <% if (error && error.length) { %>
         <p style="color:red"><%= error[0] %></p>
-      <% } %>
-
-      <!-- Success message -->
-      <% if (success && success.length) { %>
+      <% } else if (success && success.length) { %>
         <ul>
           <% success.forEach(msg => { %>
             <li style="color: green;"><%= msg %></li>
-          <% }) %>
+          <% }); %>
         </ul>
       <% } %>
+
+
+
 
     <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
     <form id="logout-form" action="/logout" method="POST">

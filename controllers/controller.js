@@ -102,7 +102,7 @@ const controller ={
             db.upgrade_user(res.locals.currentUser.email)
             console.log("CORRECT")
             req.flash('success', 'You are now a member! :)')
-            res.redirect('/dashboard')
+            res.render('dashboard')
         }
     },
 
