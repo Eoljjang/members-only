@@ -73,7 +73,7 @@
                       console.log("User ID:", userId, "Created by:", message.created_by)
 
                       // If the user is a 'member' status. Then display date & author of the post.
-                      if (userStatus === "member") {
+                      if (userStatus === "member" || userStatus === "admin") {
                           postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
                           postAuthor.textContent = `@ ${message.username}`
                       }
@@ -85,7 +85,7 @@
                           postAuthor.classList.add('self-authored') // Give it this class so that it's highlighted.
                       }
 
-                      if (userStatus !== "member"){
+                      if (userStatus !== "member" || userStatus !== "admin"){
                         postTimestamp.textContent = "Become a member to view more details!"
                       }
 
@@ -99,6 +99,22 @@
                         postContent
                       </div>
                       */
+
+
+                      // Only create the "delete icon" if user is an admin.
+                      if (userStatus === "admin"){
+                        const deletePostForm = document.createElement('form'); // Must be in a form in order for it to DELETE.
+                        const deletePostBtn = document.createElement('button');
+
+                        deletePostForm.classList.add("delete-post-form");
+                        deletePostBtn.classList.add("delete-post-btn");
+
+                        deletePostBtn.textContent = "Delete";
+
+                        deletePostForm.appendChild(deletePostBtn)
+                        postItem.appendChild(deletePostForm)
+                      }
+
                       postInfo.appendChild(postTitle)
                       postInfo.appendChild(postAuthor);
                       postInfo.appendChild(postTimestamp);
@@ -116,15 +132,6 @@
       });
     </script>
 
-     <!-- There's a secret button where the user can enter a pw to get "member" role. -->
-      <h1 class="title">Gain Member Access</h1>
-      <form id="member-access-form" action="/upgradeStatus" method="post">
-            <label  for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
-            <input id="input-upgrade" type="text" name="input-upgrade" placeholder="...">
-            <button id="btn-input-upgrade" type="submit">Submit</button>
-      </form>
-
-
       <!-- Display error message -->
       <% if (error && error.length) { %>
         <p style="color:red"><%= error[0] %></p>
@@ -136,8 +143,20 @@
         </ul>
       <% } %>
 
+     <!-- There's a secret button where the user can enter a pw to get "member" role. -->
+      <h1 class="title">Gain Member Access</h1>
+      <form id="member-access-form" action="/upgradeStatus" method="post">
+            <label  for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
+            <input id="input-upgrade" type="text" name="input-upgrade" placeholder="...">
+            <button id="btn-input-upgrade" type="submit">Submit</button>
+      </form>
 
-
+      <h1 class="title">Gain Admin Access</h1>
+      <form id="admin-access-form" action="/upgradeToAdmin" method="post">
+            <label for="input-upgrade-admin">Enter Password to Gain "Admin" Priviledges:</label>
+            <input id="input-upgrade-admin" type="text" name="input-upgrade-admin" placeholder="...">
+            <button id="btn-input-upgrade-admin" type="submit">Submit</button>
+      </form>
 
     <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
     <form id="logout-form" action="/logout" method="POST">

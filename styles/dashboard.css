@@ -178,14 +178,14 @@ body{
     background-color: rgba(251, 251, 163, 0.888);
 }
 
-#member-access-form{
+#member-access-form, #admin-access-form{
     display: flex;
     flex-direction: column;
     gap: 12px;
     align-items: center;
 }
 
-#input-upgrade{
+#input-upgrade, #input-upgrade-admin{
     width: 100%;
     height: 50px;
     padding: 16px;
@@ -197,7 +197,7 @@ body{
     resize: none;
 }
 
-#btn-input-upgrade{
+#btn-input-upgrade, #btn-input-upgrade-admin{
     background-color: rgba(51, 51, 51, 0.05);
     border-radius: 8px;
     border-width: 0;

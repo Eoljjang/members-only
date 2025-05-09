@@ -25,6 +25,18 @@ async function upgrade_user(email){
     }
 }
 
+async function upgrade_to_admin(email) {
+    try{
+        const result = await pool.query(
+            'UPDATE users SET status = $1 WHERE email = $2 RETURNING *',
+            ['admin', email]
+        );
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 async function post_message(user, messageTitle, messageContent){ // user is res.locals.currentUser object.
     const user_id = user.id;
     try{
@@ -65,4 +77,5 @@ module.exports = {
     upgrade_user,
     post_message,
     get_messages,
+    upgrade_to_admin,
 }

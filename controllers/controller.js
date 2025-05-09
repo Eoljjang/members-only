@@ -106,6 +106,30 @@ const controller ={
         }
     },
 
+    upgrade_to_admin: async(req, res, next) => {
+        // Run validator
+        await body('input-upgrade-admin')
+        .custom((value, { req }) => value === process.env.UPGRADE_ADMIN_CODE)
+        .withMessage('Incorect password to become an admin :(')
+        .run(req);
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            console.log('error')
+            const errorMessages = errors.array().map(err => err.msg);
+            req.flash('error', errorMessages);
+            res.redirect('/dashboard')
+        }
+
+        // Else: Make a db query to update that user.
+        else{
+            db.upgrade_to_admin(res.locals.currentUser.email)
+            console.log("You are now an admin.")
+            req.flash('success', 'You are now an admin! :)')
+            res.render('dashboard')
+        }
+    },
+
     logout: (req, res, next) => {
         req.logout(function (e) { // Passport handles removing the session and stuff.
             if (e) {
