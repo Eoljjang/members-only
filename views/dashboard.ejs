@@ -9,7 +9,7 @@
 <body>
     <!-- This is where the user lands after they initially log in. -->
     <!-- You can access the current user by the "currentUser" varaible. -->
-     <h1 id="welcome-title">Welcome,<%= currentUser.username%></h1>
+     <h1 id="welcome-title">Welcome, <%= currentUser.username%></h1>
 
      <div class="content-container-1">
        <div class="profile-info">
@@ -38,13 +38,13 @@
         </div>
 
       </div>
-    
+
      <script>
       document.addEventListener('DOMContentLoaded', function() {
           fetch('/getMessages')
               .then(response => response.json())
               .then(data => {
-                  const {messages, userStatus} = data;
+                  const {messages, userStatus, userId} = data;
                   const slideTrack = document.querySelector('.slide-track');
                   slideTrack.innerHTML = ''; // Clear any existing content
                   messages.forEach(message => {
@@ -66,10 +66,18 @@
                       postTitle.textContent = `${message.title}`;
                       postContent.textContent = `${message.message}`;
 
+                      console.log("User ID:", userId, "Created by:", message.created_by)
+
                       // If the user is a 'member' status. Then display date & author of the post.
                       if (userStatus === "member") {
                           postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
                           postAuthor.textContent = `${message.username}`
+                      }
+
+                      // Or if the message was written by them, they can see the details.
+                      else if (userId === message.created_by){
+                          postTimestamp.textContent = `${message.timestamp.slice(0,10)} @ ${message.timestamp.slice(11, 16)}`
+                          postAuthor.textContent = `${message.username} (Me)`
                       }
 
                       else{
@@ -103,7 +111,7 @@
       <% if (error && error.length) { %>
         <p style="color:red"><%= error[0] %></p>
       <% } %>
-    
+
       <!-- Success message -->
       <% if (success && success.length) { %>
         <ul>
@@ -117,6 +125,6 @@
       <form action="/logout" method="POST">
         <button type="submit">Logout</button>
       </form>
-        
+
 </body>
 </html>

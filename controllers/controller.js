@@ -44,7 +44,7 @@ const controller ={
             else{
                 req.flash('error', err.detail)
             }
-            
+
             res.redirect("/signup")
           }
     },
@@ -93,7 +93,7 @@ const controller ={
         if (!errors.isEmpty()) {
             console.log('error')
             const errorMessages = errors.array().map(err => err.msg);
-            req.flash('error', errorMessages); 
+            req.flash('error', errorMessages);
             res.redirect('/dashboard')
         }
 
@@ -119,12 +119,14 @@ const controller ={
         // 1) query the database to get all the messages
         const messages = await db.get_messages();
         const userStatus = res.locals.currentUser.status;
+        const userId = res.locals.currentUser.id;
 
         // 2) Return messages -> let dashboard.ejs render it.
         res.json(
             {
             messages,
-            userStatus
+            userStatus,
+            userId,
             }
         );
     },

@@ -41,18 +41,19 @@ async function post_message(user, messageTitle, messageContent){ // user is res.
 async function get_messages() {
     try {
         const response = await pool.query(`
-            SELECT 
+            SELECT
                 messages.id,
                 messages.title,
                 messages.message,
                 messages.timestamp,
+                messages.created_by,
                 users.username,
                 users.id AS user_id
             FROM messages
             JOIN users ON messages.created_by = users.id
             ORDER BY messages.timestamp DESC;
         `);
-        
+
         return response.rows;
     } catch (err) {
         throw err;
