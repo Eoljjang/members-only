@@ -14,7 +14,7 @@ require("dotenv").config();
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true })); // Lets you pass data from UI from -> server.
-app.use('/styles', express.static('styles')); // where to serve static css files.
+app.use('/styles', express.static('styles')); // where to serve static css files.s
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: false}));
 
