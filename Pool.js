@@ -23,3 +23,5 @@ if (process.env.DB_URL) {
     port: parseInt(process.env.DB_PORT, 10)
   });
 }
+
+module.exports = pool;
