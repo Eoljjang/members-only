@@ -72,10 +72,21 @@ async function get_messages() {
     }
 }
 
+async function delete_message(messageId) {
+    try{
+        await pool.query(`DELETE from messages where ID = $1`, [messageId]);
+        console.log(`Deleted message with id: ${messageId}.`);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 module.exports = {
     create_account,
     upgrade_user,
     post_message,
     get_messages,
     upgrade_to_admin,
+    delete_message,
 }

@@ -124,10 +124,10 @@ body{
 
 .posts-container{
     display: flex;
-    width: 65%;
+    width: 70%;
     align-items: center;
-    justify-content: space-evenly;
-    gap: 12px; /* Add some minimum spacing. */
+    justify-content: center;
+    gap: 16px; /* Add some minimum spacing. */
     flex-wrap: wrap;
     padding: 16px;
     border-radius: 14px;
@@ -176,6 +176,12 @@ body{
     border-radius: 8px;
     width: fit-content;
     background-color: rgba(251, 251, 163, 0.888);
+}
+
+.status-change-container{
+    display: flex;
+    padding-bottom: 18px;
+    gap: 48px;
 }
 
 #member-access-form, #admin-access-form{

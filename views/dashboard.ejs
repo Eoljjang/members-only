@@ -34,9 +34,6 @@
       <!-- Don't forget to conditionally render if user is 'basic' or 'member'-->
       <h1 class="title">Messages</h1>
       <div class="posts-container">
-        <div class="slide-track"> <!-- for future if i want to make it a continuous sliding carasoul.-->
-          <!-- post items -->
-        </div>
 
       </div>
 
@@ -56,6 +53,7 @@
                       const postTimestamp = document.createElement('div');
                       const postAuthor = document.createElement('div');
                       const postInfo = document.createElement('div'); // Holds title, date, author.
+                      const messageIdInput = document.createElement('input'); // hidden input, holds the message.id (so we can pass it around).
 
                       // Add their classes
                       postItem.classList.add('post-item')
@@ -65,6 +63,10 @@
                       postAuthor.classList.add('post-author')
                       postInfo.classList.add('post-info')
 
+                      // Set up the hidden message id input.
+                      messageIdInput.type="hidden";
+                      messageIdInput.name="messageId";
+                      messageIdInput.value = message.id
 
                       // Fill post with content
                       postTitle.textContent = `${message.title}`;
@@ -91,12 +93,17 @@
 
                       /* Create structure
                       <div .posts-container>
-                        <div .post-info>
-                          postTitle
-                          postAuthor
-                          postTimestamp
+                        <div .post-item>
+                          <form action="/deleteMsg" method="POST">
+                            <button type="submit">delete</button>
+                          </form>
+                          <div .post-info>
+                            postTitle
+                            postAuthor
+                            postTimestamp
+                          </div>
+                          postContent
                         </div>
-                        postContent
                       </div>
                       */
 
@@ -107,12 +114,16 @@
                         const deletePostBtn = document.createElement('button');
 
                         deletePostForm.classList.add("delete-post-form");
-                        deletePostBtn.classList.add("delete-post-btn");
+                        deletePostForm.action = "/deleteMessage";
+                        deletePostForm.method = "POST";
 
+                        deletePostBtn.classList.add("delete-post-btn");
                         deletePostBtn.textContent = "Delete";
+                        deletePostBtn.type="submit";
 
                         deletePostForm.appendChild(deletePostBtn)
                         postItem.appendChild(deletePostForm)
+                        deletePostForm.appendChild(messageIdInput); // Append the hidden message-id field if admin.
                       }
 
                       postInfo.appendChild(postTitle)
@@ -143,20 +154,23 @@
         </ul>
       <% } %>
 
-     <!-- There's a secret button where the user can enter a pw to get "member" role. -->
-      <h1 class="title">Gain Member Access</h1>
-      <form id="member-access-form" action="/upgradeStatus" method="post">
-            <label  for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
-            <input id="input-upgrade" type="text" name="input-upgrade" placeholder="...">
-            <button id="btn-input-upgrade" type="submit">Submit</button>
-      </form>
+     <!-- Where user can change their statuses. -->
+      <div class="status-change-container">
+        <form id="member-access-form" action="/upgradeStatus" method="post">
+              <h3 class="title">Gain Member Access</h3>
+              <label  for="input-upgrade">Enter Password to Gain "Member" Priviledges:</label>
+              <input id="input-upgrade" type="text" name="input-upgrade" placeholder="...">
+              <button id="btn-input-upgrade" type="submit">Submit</button>
+        </form>
 
-      <h1 class="title">Gain Admin Access</h1>
-      <form id="admin-access-form" action="/upgradeToAdmin" method="post">
-            <label for="input-upgrade-admin">Enter Password to Gain "Admin" Priviledges:</label>
-            <input id="input-upgrade-admin" type="text" name="input-upgrade-admin" placeholder="...">
-            <button id="btn-input-upgrade-admin" type="submit">Submit</button>
-      </form>
+
+        <form id="admin-access-form" action="/upgradeToAdmin" method="post">
+              <h3 class="title">Gain Admin Access</h3>
+              <label for="input-upgrade-admin">Enter Password to Gain "Admin" Priviledges:</label>
+              <input id="input-upgrade-admin" type="text" name="input-upgrade-admin" placeholder="...">
+              <button id="btn-input-upgrade-admin" type="submit">Submit</button>
+        </form>
+      </div>
 
     <!-- Logout Button. Note it has to be a form instead of <a> since <a> is always 'GET' -->
     <form id="logout-form" action="/logout" method="POST">

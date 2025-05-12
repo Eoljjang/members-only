@@ -14,5 +14,6 @@ router.post('/upgradeStatus', controller.upgrade_status);
 router.post('/logout', controller.logout);
 router.post('/postMessage', controller.postMessage);
 router.post('/upgradeToAdmin', controller.upgrade_to_admin);
+router.post('/deleteMessage', controller.delete_message);
 
 module.exports = router;

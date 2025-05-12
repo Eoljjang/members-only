@@ -160,6 +160,12 @@ const controller ={
         db.post_message(res.locals.currentUser, messageTitle, messageContent)
         res.redirect('/dashboard')
     },
+
+    delete_message: (req, res, next) => {
+        const {messageId} = req.body;
+        db.delete_message(messageId);
+        res.redirect('/dashboard');
+    },
 }
 
 module.exports = controller;
