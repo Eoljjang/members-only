@@ -93,7 +93,7 @@ app.use((req, res, next) => {
 app.use('/', routes)
 
 // Start the server. Note that the server & db ports are different.
-const PORT = process.env.PORT || 3000;
+const PORT = parseInt(process.env.PORT) || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is listening on ${process.env.SERVER_PORT}`)
+    console.log(`Server is listening on ${process.env.PORT}`)
 })

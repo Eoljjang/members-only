@@ -2,6 +2,9 @@
 -- So create a db called "members-only"
 -- Pass this sql file into psql: psql -U <user> -d members_only -a -f db/init.sql
 
+-- You can also send this file to the external URL of the hosted psql.
+-- psql <your-connection-string> -f path/to/init.sql
+
 -- Session store table.
 CREATE TABLE "session" (
   "sid" varchar NOT NULL COLLATE "default",
